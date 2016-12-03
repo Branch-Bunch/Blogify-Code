@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "webpack --watch --progress --colors"
+    "build": "webpack --watch --progress --colors",
+    "dev": "webpack-dev-server --hot"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,8 @@
     "babel-loader": "^6.2.8",
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "dotenv": "^2.0.0",
