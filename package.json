@@ -19,8 +19,10 @@
     "webpack": "^1.13.3"
   },
   "dependencies": {
+    "dotenv": "^2.0.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "replit-client": "^0.14.0"
+    "replit-client": "^0.14.0",
+    "ws": "^1.1.1"
   }
 }
