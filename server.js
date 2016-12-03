@@ -1,23 +1,14 @@
 const dotenv = require('dotenv').config()
-const ReplitClient = require('replit-client')
+const bodyParser = require('body-parser')
+const express = require('express')
+const app = express()
+const replitRoute = require('./routes/replit.js')
 
-const TOKEN = JSON.parse(process.env.TOKEN)
+const PORT = process.env.PORT
 
-let repl = new ReplitClient('api.repl.it', 80, 'python3', TOKEN)
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`)
+})
 
-repl.connect()
-    .then(() => {
-        console.log('connected')
-        repl.evaluate('x = 1\nprint(x)', {stdout: (out) => {
-           console.log(out) 
-        }})
-            .then((result) => {
-                if (result.error) {
-                    console.log(result.error)
-                }
-                console.log(result.data)
-            })
-    }, (error) => {
-        console.log('failed')
-        console.log(error)
-    })
+app.use(express.static(__dirname + '/public'))
+app.use('/replit', replitRoute)
