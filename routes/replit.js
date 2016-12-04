@@ -26,6 +26,8 @@ router.post('/', (req, res) => {
                     res.send({
                         data: result.data 
                     })
+                    repl.disconnect()
+                    console.log('disconnecting')
                 })
                 .catch((error) => {
                     let data  = { data: error.toString() }
@@ -37,7 +39,6 @@ router.post('/', (req, res) => {
             console.log(error)
             res.status(500).send(error)
         })
-    repl.disconnect()
 })
 
 module.exports = router
