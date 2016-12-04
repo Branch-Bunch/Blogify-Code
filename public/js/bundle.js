@@ -26460,16 +26460,38 @@
 	var MarkupBody = function (_React$Component) {
 	    _inherits(MarkupBody, _React$Component);
 
-	    function MarkupBody() {
+	    function MarkupBody(props) {
 	        _classCallCheck(this, MarkupBody);
 
-	        return _possibleConstructorReturn(this, (MarkupBody.__proto__ || Object.getPrototypeOf(MarkupBody)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (MarkupBody.__proto__ || Object.getPrototypeOf(MarkupBody)).call(this, props));
+
+	        _this.state = {
+	            markdown: ''
+	        };
+	        _this.refresh();
+	        return _this;
 	    }
 
 	    _createClass(MarkupBody, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_MarkdownBlock2.default, { markdown: 'hi there very **cool**' });
+	            var textBlocks = '';
+	            return _react2.default.createElement(_MarkdownBlock2.default, { markdown: this.state.markdown });
+	        }
+	    }, {
+	        key: 'refresh',
+	        value: function refresh() {
+	            var _this2 = this;
+
+	            fetch('https://api.github.com/gists/4b59ccde8113faf0328f5eb29c298836', {}).then(function (res) {
+	                return res.json();
+	            }).then(function (json) {
+	                console.log(json);
+	                var filename = Object.keys(json.files)[0];
+	                _this2.setState({
+	                    markdown: json.files[filename].content
+	                });
+	            });
 	        }
 	    }]);
 
