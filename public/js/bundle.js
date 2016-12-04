@@ -21511,11 +21511,15 @@
 	    _createClass(App, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_MarkupBody2.default, null)
-	            // <Router>
-	            //     <Route path='/:id' component={MarkupBody} />
-	            // </Router>
-	            ;
+	            return _react2.default.createElement(
+	                _reactRouter.Router,
+	                { history: _reactRouter.hashHistory },
+	                _react2.default.createElement(
+	                    _reactRouter.Route,
+	                    { path: '/', component: _MarkupBody2.default },
+	                    _react2.default.createElement(_reactRouter.Route, { path: ':id', component: _MarkupBody2.default })
+	                )
+	            );
 	        }
 	    }]);
 
@@ -26493,7 +26497,7 @@
 	        value: function refresh() {
 	            var _this2 = this;
 
-	            fetch('https://api.github.com/gists/4b59ccde8113faf0328f5eb29c298836', {}).then(function (res) {
+	            fetch('https://api.github.com/gists/' + this.props.params.id, {}).then(function (res) {
 	                return res.json();
 	            }).then(function (json) {
 	                console.log(json);
