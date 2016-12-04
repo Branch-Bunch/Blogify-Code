@@ -26497,6 +26497,7 @@
 	        value: function refresh() {
 	            var _this2 = this;
 
+	            if (!this.props.params.id) return;
 	            fetch('https://api.github.com/gists/' + this.props.params.id, {}).then(function (res) {
 	                return res.json();
 	            }).then(function (json) {
@@ -26554,8 +26555,6 @@
 	    _createClass(MarkdownBlock, [{
 	        key: 'render',
 	        value: function render() {
-	            console.log('hit');
-	            console.log(this.props.markdown);
 	            _marked2.default.setOptions({
 	                renderer: new _marked2.default.Renderer(),
 	                gfm: true,

@@ -30,6 +30,7 @@ export default class MarkupBody extends React.Component {
     }
 
     refresh() {
+        if (!this.props.params.id) return;
         fetch(`https://api.github.com/gists/${this.props.params.id}`, {})
             .then(res => {
                 return res.json()

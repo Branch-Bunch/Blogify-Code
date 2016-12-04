@@ -3,8 +3,6 @@ import Marked from 'marked'
 
 export default class MarkdownBlock extends React.Component {
     render() {
-        console.log('hit');
-        console.log(this.props.markdown);
         Marked.setOptions({
             renderer: new Marked.Renderer(),
             gfm: true,
