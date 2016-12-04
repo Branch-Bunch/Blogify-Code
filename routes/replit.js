@@ -11,9 +11,18 @@ router.use(bodyParser.urlencoded({
     extended: true
 }))
 
+let js = ['javascript', 'js', 'node']
+
+function parseLang(lang) {
+    if (js.includes(lang)) {
+        return 'nodejs'
+    }
+    return lang
+}
+
 router.post('/', (req, res) => {
     console.log(req.body)
-    let repl = new ReplitClient('api.repl.it', 80, req.body.lang, TOKEN)
+    let repl = new ReplitClient('api.repl.it', 80, parseLang(req.body.lang), TOKEN)
     repl.connect()
         .then(() => {
             console.log('connected')
@@ -36,8 +45,9 @@ router.post('/', (req, res) => {
                 })
         })
         .catch((error) => {
-            console.log(error)
-            res.status(500).send(error)
+            let data = { data: error.toString() }
+            console.log(data)
+            res.status(500).send(data)
         })
 })
 
