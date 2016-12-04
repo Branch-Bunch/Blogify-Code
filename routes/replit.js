@@ -11,27 +11,33 @@ router.use(bodyParser.urlencoded({
     extended: true
 }))
 
-let repl = new ReplitClient('api.repl.it', 80, 'python3', TOKEN)
-
-
-router.get('/test', (req, res) => {
+router.post('/', (req, res) => {
+    console.log(req.body)
+    let repl = new ReplitClient('api.repl.it', 80, req.body.lang, TOKEN)
     repl.connect()
         .then(() => {
             console.log('connected')
-            repl.evaluate('x = 1\nprint(x)', {stdout: (out) => {
-                console.log(out) 
-            }})
+            repl.evaluate(req.body.code, {
+                stdout: (out) => out
+            })
                 .then((result) => {
                     if (result.error) throw new Error(result.error)
-                    console.log(result.data)
+                    console.log(result)
+                    res.send({
+                        data: result.data 
+                    })
                 })
                 .catch((error) => {
-                    console.log(error) 
+                    let data  = { data: error }
+                    console.log(data)
+                    res.send(data)
                 })
-        }, (error) => {
-            console.log('failed')
-            console.log(error)
         })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send(error)
+        })
+    repl.disconnect()
 })
 
 module.exports = router
