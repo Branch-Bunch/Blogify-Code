@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
                     })
                 })
                 .catch((error) => {
-                    let data  = { data: error }
+                    let data  = { data: error.toString() }
                     console.log(data)
                     res.send(data)
                 })
