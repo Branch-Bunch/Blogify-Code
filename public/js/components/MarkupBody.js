@@ -11,9 +11,21 @@ export default class MarkupBody extends React.Component {
     }
 
     render() {
-        let textBlocks = ''
+        const blocks = this.state.markdown
+            .split('```')
+            .map((element, index) => {
+                return (
+                    <MarkdownBlock
+                        key={element}
+                        markdown={element}
+                    />
+                )
+            })
+        console.log(blocks);
         return (
-            <MarkdownBlock markdown={this.state.markdown} />
+            <div>
+                {blocks}
+            </div>
         )
     }
 

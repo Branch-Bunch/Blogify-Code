@@ -26475,8 +26475,18 @@
 	    _createClass(MarkupBody, [{
 	        key: 'render',
 	        value: function render() {
-	            var textBlocks = '';
-	            return _react2.default.createElement(_MarkdownBlock2.default, { markdown: this.state.markdown });
+	            var blocks = this.state.markdown.split('```').map(function (element, index) {
+	                return _react2.default.createElement(_MarkdownBlock2.default, {
+	                    key: element,
+	                    markdown: element
+	                });
+	            });
+	            console.log(blocks);
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                blocks
+	            );
 	        }
 	    }, {
 	        key: 'refresh',
@@ -26540,6 +26550,8 @@
 	    _createClass(MarkdownBlock, [{
 	        key: 'render',
 	        value: function render() {
+	            console.log('hit');
+	            console.log(this.props.markdown);
 	            _marked2.default.setOptions({
 	                renderer: new _marked2.default.Renderer(),
 	                gfm: true,
